@@ -1,32 +1,69 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package card;
+import java.util.Random;
 
-/**
- * A class that fills a magic hand of 7 cards with random Card Objects
- * and then asks the user to pick a card and searches the array of cards
- * for the match to the user's card. To be used as starting code in ICE 1
- * @author srinivsi
- */
 public class CardTrick {
-    
-    public static void main(String[] args)
-    {
-        Card[] magicHand = new Card[7];
-        
-        for (int i=0; i<magicHand.length; i++)
-        {
-            Card c = new Card();
-            //c.setValue(insert call to random number generator here)
-            //c.setSuit(Card.SUITS[insert call to random number between 0-3 here])
-        }
-        
-        //insert code to ask the user for Card value and suit, create their card
-        // and search magicHand here
-        //Then report the result here
-        // add one luckcard hard code 2,clubs
+    // Add your name and student number here
+    // Name: Deepika Deepika
+    // Student Number: 991709593
+
+    private Card[] hand;
+    private static final String[] SUITS = {"Hearts", "Diamonds", "Clubs", "Spades"};
+    private static final int HAND_SIZE = 7;
+
+    public CardTrick() {
+        hand = new Card[HAND_SIZE];
+        fillHand();
     }
-    
+
+    private void fillHand() {
+        Random random = new Random();
+        for (int i = 0; i < HAND_SIZE; i++) {
+            int value = random.nextInt(13) + 1; // Values 1-13
+            String suit = SUITS[random.nextInt(SUITS.length)]; // Random suit
+            hand[i] = new Card(value, suit);
+        }
+    }
+
+    public void displayHand() {
+        for (Card card : hand) {
+            System.out.println(card);
+        }
+    }
+
+    public static void main(String[] args) {
+        CardTrick cardTrick = new CardTrick();
+        cardTrick.displayHand();
+    }
+
+    private class Card {
+        private int value;
+        private String suit;
+
+        public Card(int value, String suit) {
+            this.value = value;
+            this.suit = suit;
+        }
+
+        @Override
+        public String toString() {
+            String valueStr;
+            switch (value) {
+                case 1:
+                    valueStr = "Ace";
+                    break;
+                case 11:
+                    valueStr = "Jack";
+                    break;
+                case 12:
+                    valueStr = "Queen";
+                    break;
+                case 13:
+                    valueStr = "King";
+                    break;
+                default:
+                    valueStr = String.valueOf(value);
+                    break;
+            }
+            return valueStr + " of " + suit;
+        }
+    }
 }
